@@ -1,6 +1,10 @@
 def train(images, labels):
-    print('训练进度')
+
     num = len(labels)
     pix_list = []
     for index in range(num):
-        return pix_list
+        print('\r', '训练进度{0}%'.format(100*index/num), end='', flush=True)
+        label = labels[index]
+        image = images[index]
+
+    return pix_list

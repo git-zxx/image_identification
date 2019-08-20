@@ -8,7 +8,7 @@ train_image_path = get_data.get_path('train_image')
 train_label_path = get_data.get_path('train_label')
 
 test_images = get_data.get_images(test_image_path)
-print(len(test_images))
+1
 test_labels = get_data.get_labels(test_label_path)
 train_images = get_data.get_images(train_image_path)
 train_labels = get_data.get_labels(train_label_path)
@@ -41,7 +41,7 @@ def get_random_image():
     return test_labels[index], test_images[index]
 
 
-def predict(image_data):
+def predict(image_data: list) -> int:
     predict_num = random.randint(0, 9)
     return predict_num
 
