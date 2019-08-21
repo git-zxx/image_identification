@@ -1,7 +1,9 @@
 import time
+from public_models import get_data, settings
 
 
 def train(images, labels):
+    HIGH_CONTRAST_IMG = settings.TRAIN_HIGH_CONTRAST_IMG
     pix_num = 28
     num = len(labels)
     label_groups = [[], [], [], [], [], [], [], [], [], []]
@@ -13,7 +15,6 @@ def train(images, labels):
         label_groups[label].append(index)
     # 像素计算
     # 遍历取每一组标签
-    time.sleep(1)
     for group in label_groups:
         print('\r', '训练进度:{0}%'.format(100 * (label_groups.index(group)+1) / 10), end='', flush=True)
         if label_groups.index(group) == 9:
@@ -24,6 +25,8 @@ def train(images, labels):
         for i in group:
             # 获取图像数组,遍历图像的每个像素:
             img = images[i]
+            if HIGH_CONTRAST_IMG is True:
+                img = get_data.get_high_contrast_image(img)
             for hang in range(pix_num):
                 for lie in range(pix_num):
                     # 若不为暗色,则统计数组相同坐标元素的值+1
@@ -36,9 +39,5 @@ def train(images, labels):
         for hang in range(pix_num):
             for lie in range(pix_num):
                 high_light_percent[hang][lie].append(pix_cnt_list[hang][lie]/whole_cnt)
-    for i in high_light_percent[1][2]:
-        print(i)
-    for i in high_light_percent:
-        for j in i:
-            print(j)
+
     return high_light_percent
