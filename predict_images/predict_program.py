@@ -8,7 +8,7 @@ train_image_path = get_data.get_path('train_image')
 train_label_path = get_data.get_path('train_label')
 
 test_images = get_data.get_images(test_image_path)
-1
+
 test_labels = get_data.get_labels(test_label_path)
 train_images = get_data.get_images(train_image_path)
 train_labels = get_data.get_labels(train_label_path)
@@ -53,5 +53,5 @@ if __name__ == "__main__":
         real_label, image = get_random_image()
         # image = get_data.get_high_contrast_image(image)
         my_predict = predict(image)
-        prt_result(my_predict, real_label, image)
+        # prt_result(my_predict, real_label, image)
         con = input("回车获取下一个,任意字符回车退出程序:")

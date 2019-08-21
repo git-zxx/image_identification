@@ -1,10 +1,44 @@
+import time
+
+
 def train(images, labels):
-
+    pix_num = 28
     num = len(labels)
-    pix_list = []
+    label_groups = [[], [], [], [], [], [], [], [], [], []]
+    high_light_percent = [[[] for y in range(pix_num)] for x in range(pix_num)]
+    # 数字分组
     for index in range(num):
-        print('\r', '训练进度{0}%'.format(100*index/num), end='', flush=True)
         label = labels[index]
-        image = images[index]
-
-    return pix_list
+        print('\r', '数组分组进度:{0}%'.format(100*int(index/num+1)), end='', flush=True)
+        label_groups[label].append(index)
+    # 像素计算
+    # 遍历取每一组标签
+    time.sleep(1)
+    for group in label_groups:
+        print('\r', '训练进度:{0}%'.format(100 * (label_groups.index(group)+1) / 10), end='', flush=True)
+        if label_groups.index(group) == 9:
+            print('')
+        # 创建像素统计数组,维数与图像相同,存当前标签每个像素亮的次数
+        pix_cnt_list = [[0 for y in range(pix_num)] for x in range(pix_num)]
+        # 遍历取每组的图像
+        for i in group:
+            # 获取图像数组,遍历图像的每个像素:
+            img = images[i]
+            for hang in range(pix_num):
+                for lie in range(pix_num):
+                    # 若不为暗色,则统计数组相同坐标元素的值+1
+                    if img[hang][lie] != 0:
+                        pix_cnt_list[hang][lie] += 1
+        # 记录每个像素在这个数字图像高亮的概率,例如:所有0中,像素[15,23]高亮的概率
+        # 用记录下来的高亮数/数字个数->概率
+        # whole_cnt为当前组数字总个数
+        whole_cnt = len(group)
+        for hang in range(pix_num):
+            for lie in range(pix_num):
+                high_light_percent[hang][lie].append(pix_cnt_list[hang][lie]/whole_cnt)
+    for i in high_light_percent[1][2]:
+        print(i)
+    for i in high_light_percent:
+        for j in i:
+            print(j)
+    return high_light_percent
