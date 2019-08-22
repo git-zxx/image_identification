@@ -95,6 +95,7 @@ def predict_by_cnt_pix(high_light_percent: list, image_data: list) -> int:
 
 if __name__ == "__main__":
     con = ''
+    # 获取训练集高亮概率数组
     light_percent = train_program.train(train_images, train_labels)
     if TEST_RANDOM is True:
         aim_cnt = 0
