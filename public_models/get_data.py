@@ -44,7 +44,7 @@ def get_high_contrast_image(image: list):
 
 
 def get_path(data_name):
-    abs_path = '/home/zxd/程序/image_identification/data/'
+    abs_path = '/home/zxx/程序/image_identification/data/'
     test_image_path = abs_path + 't10k-images-idx3-ubyte'
     test_label_path = abs_path + 't10k-labels-idx1-ubyte'
     train_image_path = abs_path + 'train-images-idx3-ubyte'

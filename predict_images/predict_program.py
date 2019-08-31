@@ -1,6 +1,7 @@
 from public_models import get_data, show_image, settings, bayes
 from train_images import train_program
 import random
+import time
 
 TEST_RANDOM = settings.TEST_RANDOM
 HIGH_CONTRAST_IMG = settings.TEST_HIGH_CONTRAST_IMG
@@ -30,7 +31,6 @@ train_labels = get_data.get_labels(train_label_path)
     1.输出图片
     2.加入GUI
     3.测试数据随机选择[避免每次运行程序看到的测试数据相同]√
-    
 '''
 
 
@@ -113,10 +113,12 @@ if __name__ == "__main__":
                 print('\r', '正确数量:{0}   测试数量:{1}   正确率:{2}%'.format(aim_cnt, test_cnt, 100*aim_cnt/test_cnt), end='', flush=True)
             con = input("\n回车获取下一个,任意字符回车退出程序:\n")
     else:
+        start_time = time.time()
         aim_cnt = 0
         test_cnt = 0
         whole = len(test_labels)
         for i in range(whole):
+            time_len = time.time()-start_time
             image = test_images[i]
             label = test_labels[i]
             image = get_data.get_high_contrast_image(image)
@@ -125,7 +127,8 @@ if __name__ == "__main__":
                 aim_cnt += 1
             percent = 100*aim_cnt/whole
             if APPARENT_OCCURRENCE is True:
-                print('\r', '准确率:{0}%   测试数量:{1}'.format(100*aim_cnt/test_cnt, test_cnt), end='', flush=True)
+                print('\r', '准确率:{0}%   测试数量:{1}   耗时：{2}s'.format(100*aim_cnt/test_cnt, test_cnt, \
+                                                                   int(time_len*100) / 100), end='', flush=True)
             else:
                 if i == whole-1:
                     print('准确率:{0}%   测试数量:{1}'.format(100*aim_cnt/test_cnt, test_cnt))

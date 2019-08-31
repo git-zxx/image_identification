@@ -1,8 +1,9 @@
-import time
 from public_models import get_data, settings
+import time
 
 
 def train(images, labels):
+    whole_start_time = time.time()
     HIGH_CONTRAST_IMG = settings.TRAIN_HIGH_CONTRAST_IMG
     pix_num = 28
     num = len(labels)
@@ -16,7 +17,8 @@ def train(images, labels):
     # 像素计算
     # 遍历取每一组标签
     for group in label_groups:
-        print('\r', '训练进度:{0}%'.format(100 * (label_groups.index(group)+1) / 10), end='', flush=True)
+        print('\r', '训练进度:{0}%    训练耗时：{1}'.format((100 * (label_groups.index(group)+1) / 10), \
+                                                   time.time() - whole_start_time ), end='', flush=True)
         if label_groups.index(group) == 9:
             print('')
         # 创建像素统计数组,维数与图像相同,存当前标签每个像素亮的次数
